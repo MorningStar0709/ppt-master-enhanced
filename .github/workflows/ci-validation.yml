@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONIOENCODING: utf-8
-      CONDA_NO_PLUGINS: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,10 +19,10 @@ jobs:
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
-          auto-activate-base: false
+          auto-activate: false
           activate-environment: ppt-master
-          environment-name: ppt-master
           python-version: "3.10"
+          conda-solver: classic
 
       - name: Install Python dependencies
         shell: bash -l {0}
