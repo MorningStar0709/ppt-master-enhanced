@@ -54,7 +54,7 @@ Use platform-native file listing commands in this workflow. Do NOT introduce Uni
 If the reference source is a `.pptx` template file, use the unified preparation helper:
 
 ```bash
-conda run -n ppt-master python skills/ppt-master/scripts/pptx_template_import.py "<reference_template.pptx>"
+conda run -n ppt-master python skills/ppt-master-enhanced/scripts/pptx_template_import.py "<reference_template.pptx>"
 ```
 
 This helper performs the full PPTX reference preparation in one workspace:
@@ -132,9 +132,9 @@ If no `.pptx` source is involved, this step can be skipped.
 
 Create the directory:
 
-`skills/ppt-master/templates/layouts/<template_id>`
+`skills/ppt-master-enhanced/templates/layouts/<template_id>`
 
-> **Output location**: Global templates go to `skills/ppt-master/templates/layouts/`; project templates go to `projects/<project>/templates/`
+> **Output location**: Global templates go to `skills/ppt-master-enhanced/templates/layouts/`; project templates go to `projects/<project>/templates/`
 >
 > The generated directory name must match the final template ID used in `layouts_index.json`.
 
@@ -182,12 +182,12 @@ The role should use the import output to anchor objective facts such as theme co
 
 Confirm the expected files exist inside:
 
-`skills/ppt-master/templates/layouts/<template_id>/`
+`skills/ppt-master-enhanced/templates/layouts/<template_id>/`
 
 Run SVG validation on the template directory:
 
 ```bash
-conda run -n ppt-master python skills/ppt-master/scripts/svg_quality_checker.py "skills/ppt-master/templates/layouts/<template_id>" --format <canvas_format>
+conda run -n ppt-master python skills/ppt-master-enhanced/scripts/svg_quality_checker.py "skills/ppt-master-enhanced/templates/layouts/<template_id>" --format <canvas_format>
 ```
 
 **Checklist**:
@@ -205,7 +205,7 @@ This step is a **hard gate**. Do not register the template into the library inde
 
 ## Step 6: Register Template in Library Index
 
-Update `skills/ppt-master/templates/layouts/layouts_index.json`:
+Update `skills/ppt-master-enhanced/templates/layouts/layouts_index.json`:
 
 - `meta.total`
 - `meta.updated`
@@ -225,7 +225,7 @@ If the human-facing `templates/layouts/README.md` summary table is maintained ma
 ## Template Creation Complete
 
 **Template Name**: <template_id> (<display_name>)
-**Template Path**: `skills/ppt-master/templates/layouts/<template_id>/`
+**Template Path**: `skills/ppt-master-enhanced/templates/layouts/<template_id>/`
 **Category**: <category>
 **Canvas Format**: <canvas_format>
 **Index Registration**: Done
@@ -263,4 +263,5 @@ If the human-facing `templates/layouts/README.md` summary table is maintained ma
 4. **Discovery requirement**: New templates must be added to `layouts_index.json`, otherwise the main workflow cannot recommend them
 
 > **Detailed specification**: See [template-designer.md](../references/template-designer.md)
+
 

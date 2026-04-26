@@ -20,9 +20,9 @@ Typical end-to-end workflow:
 conda run -n ppt-master python scripts/source_to_md/pdf_to_md.py <file.pdf>
 # or
 conda run -n ppt-master python scripts/source_to_md/ppt_to_md.py <deck.pptx>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init <project_name> --format ppt169 --dir projects
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py import-sources "<project_path>" "<source_files...>" --copy
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py apply-template "<project_path>" <template_name>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init <project_name> --format ppt169 --dir projects
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py import-sources "<project_path>" "<source_files...>" --copy
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py apply-template "<project_path>" <template_name>
 # Reuse the exact project path printed by init; do not infer it from <project_name>
 # init already creates svg_output/, notes/, review/, templates/, sources/, exports/, etc.
 # Apply a library layout template here only when Step 3 selected "use template"
@@ -36,7 +36,7 @@ Execution discipline:
 
 - Generate Step 6 SVG / notes / review artifacts with IDE/native file editing tools or repository Python helpers, not shell redirection
 - On Windows/Trae, do not use `>`, `>>`, `Out-File`, `Set-Content`, `Add-Content`, or `New-Item` to create `svg_output/*.svg`, `notes/*.md`, or `review/*.md`
-- Launch the main workflow from the repository root; do not switch into `skills/ppt-master/scripts/` first
+- Launch the main workflow from the repository root; do not switch into `skills/ppt-master-enhanced/scripts/` first
 - Use English-only project slugs and rely on `import-sources` to normalize archived filenames under `sources/` to English-only names
 - After `project_manager.py init`, always propagate the exact printed project path to later commands; the actual directory name is `projects/<project_name>_<normalized_format>`
 - Project directories do not carry timestamps; that is intentional so the project path stays stable across retries and later turns
@@ -76,15 +76,15 @@ conda run -n ppt-master python scripts/source_to_md/web_to_md.py <url>
 Project setup:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init <project_name> --format ppt169 --dir projects
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py import-sources "<project_path>" "<source_files...>" --copy
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py apply-template "<project_path>" <template_name>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py validate <project_path>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py set-page <project_path> --file 01_cover.svg --priority none --reviewed yes --note "layout pass"
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py status <project_path> --compact
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py verify <project_path> --compact
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py verify <project_path> --json
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py sync <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init <project_name> --format ppt169 --dir projects
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py import-sources "<project_path>" "<source_files...>" --copy
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py apply-template "<project_path>" <template_name>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py validate <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py set-page <project_path> --file 01_cover.svg --priority none --reviewed yes --note "layout pass"
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py status <project_path> --compact
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py verify <project_path> --compact
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py verify <project_path> --json
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py sync <project_path>
 conda run -n ppt-master python scripts/asset_lookup.py charts roadmap
 conda run -n ppt-master python scripts/asset_lookup.py icons chunk/signal --exact
 conda run -n ppt-master python scripts/asset_lookup.py icons chart --library chunk
@@ -169,4 +169,5 @@ conda run -n ppt-master python scripts/update_repo.py --skip-pip
 - [AGENTS Guide](../../../AGENTS.md)
 
 _Last updated: 2026-04-19_
+
 

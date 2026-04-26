@@ -118,8 +118,8 @@ Minimal field guidance:
 Example:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/revision_manager.py scaffold-tasks <project_path> --files 03_architecture.svg 06_patent_innovation.svg --output revision_tasks.json
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/revision_manager.py create-round <project_path> --json-file revision_tasks.json --title "round 1"
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/revision_manager.py scaffold-tasks <project_path> --files 03_architecture.svg 06_patent_innovation.svg --output revision_tasks.json
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/revision_manager.py create-round <project_path> --json-file revision_tasks.json --title "round 1"
 ```
 
 When consuming `review/verify_report.json` for repair work, prefer this order:
@@ -158,7 +158,7 @@ Preferred validation order:
 For icon-contract regressions, prefer the dedicated minimal regression test first:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/tests/test_icon_contract.py
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/tests/test_icon_contract.py
 ```
 
 This keeps token usage and local iteration cost low while preserving the final Step 7 gate as the last end-to-end check.
@@ -231,4 +231,5 @@ Review rule:
 
 - If `svg_layout_checker.py` warns but browser whole-page preview and intended export layout are both clearly correct, prefer fixing the checker heuristic rather than forcing a cosmetic SVG rewrite
 - If the warning corresponds to a visible overflow or misalignment in preview, fix the SVG layout and re-run review
+
 

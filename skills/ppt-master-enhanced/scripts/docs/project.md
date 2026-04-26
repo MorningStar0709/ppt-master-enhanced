@@ -7,11 +7,11 @@ Project tools create, validate, and inspect the standard PPT Master workspace.
 Main entry point for project setup and validation.
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init <project_name> --format ppt169 --dir projects
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py import-sources <project_path> <source1> [<source2> ...] --copy
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py apply-template <project_path> <template_name>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py validate <project_path>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py info <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init <project_name> --format ppt169 --dir projects
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py import-sources <project_path> <source1> [<source2> ...] --copy
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py apply-template <project_path> <template_name>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py validate <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py info <project_path>
 ```
 
 Notes:
@@ -19,7 +19,7 @@ Notes:
 - Launch the main workflow from the repository root and keep Step 2 on the single command form shown above
 - `<project_name>` MUST be an English slug such as `wireless_cloud_control_patent`
 - After `init`, the real project directory is `projects/<project_name>_<normalized_format>`; always reuse the exact printed path from the command output instead of inferring it
-- When terminal output is truncated, read `skills/ppt-master/.runtime/command_reports/project_manager_<command>_last.json` instead of guessing the last result
+- When terminal output is truncated, read `skills/ppt-master-enhanced/.runtime/command_reports/project_manager_<command>_last.json` instead of guessing the last result
 - Project directories intentionally do not include timestamps; the directory is the stable machine identifier, while creation time remains metadata
 - Exported PPTX files under `exports/` intentionally do include timestamps so repeated exports preserve history without mutating the project identity
 - If `init` says the project directory already exists, reuse that exact project path or choose a new slug explicitly; do not guess fallback paths
@@ -49,10 +49,10 @@ Common formats:
 Examples:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init my_presentation --format ppt169 --dir projects
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py import-sources "projects/my_presentation_ppt169" "source.md" --copy
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py validate "projects/my_presentation_ppt169"
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py info "projects/my_presentation_ppt169"
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init my_presentation --format ppt169 --dir projects
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py import-sources "projects/my_presentation_ppt169" "source.md" --copy
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py validate "projects/my_presentation_ppt169"
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py info "projects/my_presentation_ppt169"
 ```
 
 ## `review_manager.py`
@@ -60,13 +60,13 @@ conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/pro
 Initialize and inspect review artifacts, then mark the deck approved for export.
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py init <project_path>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py sync <project_path>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py render <project_path>
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py set-page <project_path> --file 01_cover.svg --priority none --reviewed yes --note "layout pass"
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py status <project_path> --compact
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py verify <project_path> --json
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/review_manager.py approve <project_path> --by <name>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py init <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py sync <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py render <project_path>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py set-page <project_path> --file 01_cover.svg --priority none --reviewed yes --note "layout pass"
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py status <project_path> --compact
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py verify <project_path> --json
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py approve <project_path> --by <name>
 ```
 
 Typical use:
@@ -202,4 +202,5 @@ conda run -n ppt-master python scripts/error_helper.py
 conda run -n ppt-master python scripts/error_helper.py missing_readme
 conda run -n ppt-master python scripts/error_helper.py missing_readme project_path=my_project
 ```
+
 

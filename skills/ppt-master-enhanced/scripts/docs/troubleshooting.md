@@ -133,8 +133,8 @@ $env:CONDA_NO_PLUGINS='true'
 
 ## Project Created In The Wrong Folder
 
-- Run Step 2 from the repository root with `python skills/ppt-master/scripts/project_manager.py ... --dir projects`
-- Do not switch into `skills/ppt-master/scripts/` before running `init`
+- Run Step 2 from the repository root with `python skills/ppt-master-enhanced/scripts/project_manager.py ... --dir projects`
+- Do not switch into `skills/ppt-master-enhanced/scripts/` before running `init`
 - Reuse the printed `projects/...` path exactly; do not infer it from the original project title
 
 ## Why Project Directories Do Not Use Timestamps
@@ -164,4 +164,5 @@ Important optional packages:
 - `numpy` for watermark removal
 - `PyMuPDF` for PDF conversion
 - `google-genai` / `openai` for image generation backends
+
 

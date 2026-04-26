@@ -2,8 +2,8 @@
 """PPT Master notes helper.
 
 Usage:
-    conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/notes_manager.py upsert-total <project_path> --slide 11_ending --body-file ending.md
-    conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/notes_manager.py upsert-total <project_path> --slide 11_ending --body "Closing remarks"
+    conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/notes_manager.py upsert-total <project_path> --slide 11_ending --body-file ending.md
+    conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/notes_manager.py upsert-total <project_path> --slide 11_ending --body "Closing remarks"
 """
 
 from __future__ import annotations
@@ -114,4 +114,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 

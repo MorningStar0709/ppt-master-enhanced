@@ -198,7 +198,7 @@ Templates use `{{PLACEHOLDER}}` format to mark replaceable content:
 Preferred workflow:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py apply-template <project_path> <template_name>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py apply-template <project_path> <template_name>
 ```
 
 This command copies the selected template's SVG and `design_spec.md` files into the target project's `templates/` directory, and routes any required PNG/JPG/WebP assets into the project's `images/` directory.
@@ -257,4 +257,5 @@ Keep template-local technical rules concise: use `references/shared-standards.md
 > `clipPath` is conditionally allowed on `<image>` elements only — follow `references/shared-standards.md` §1.2.
 
 ---
+
 

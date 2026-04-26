@@ -2,8 +2,8 @@
 """Update the repository and sync Python dependencies when needed.
 
 Usage:
-    conda run -n ppt-master python skills/ppt-master/scripts/update_repo.py
-    conda run -n ppt-master python skills/ppt-master/scripts/update_repo.py --skip-pip
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/update_repo.py
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/update_repo.py --skip-pip
 """
 
 from __future__ import annotations
@@ -149,3 +149,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

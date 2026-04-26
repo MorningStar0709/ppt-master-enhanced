@@ -58,7 +58,7 @@ description: >
 >   - `$env:PYTHONIOENCODING='utf-8'`
 >   - `$env:CONDA_NO_PLUGINS='true'`
 > - In Windows/Trae, treat `conda run --no-capture-output -n ppt-master python ...` as the default command form for `project_manager.py`, `review_manager.py`, and other commands that may read/write or print path/content information
-> - Main workflow commands MUST be launched from the repository root. Do NOT switch into `skills/ppt-master/scripts/` to run them
+> - Main workflow commands MUST be launched from the repository root. Do NOT switch into `skills/ppt-master-enhanced/scripts/` to run them
 > - Use repository-relative paths only. Do NOT rewrite workflow commands to absolute filesystem paths
 > - After `project_manager.py init`, the agent MUST capture and reuse the exact printed project path for all subsequent commands. Never infer the path from the raw `<project_name>`
 > - `project_manager.py init` creates the standard project directories automatically (`svg_output/`, `svg_final/`, `images/`, `notes/`, `review/`, `templates/`, `sources/`, `exports/`). Do NOT manually create them with shell commands
@@ -171,7 +171,7 @@ When the user provides non-Markdown content, convert immediately:
 🚧 **GATE**: Step 1 complete; source content is ready (Markdown file, user-provided text, or requirements described in conversation are all valid).
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init <project_name> --format <format> --dir projects
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init <project_name> --format <format> --dir projects
 ```
 
 Format options: `ppt169` (default), `ppt43`, `xhs`, `story`, etc. For the full format list, see `references/canvas-formats.md`.
@@ -181,7 +181,7 @@ Format options: `ppt169` (default), `ppt43`, `xhs`, `story`, etc. For the full f
 > ⚠️ **Project slug rule**: `<project_name>` MUST already be an English slug. Do NOT pass Chinese, spaces, or mixed-language titles here.
 
 > ⚠️ **Project path rule**: `project_manager.py init` creates the real project directory as `projects/<project_name>_<normalized_format>`. The agent MUST read and reuse the exact printed path returned by `init`; do NOT guess it and do NOT continue using the raw `<project_name>` as the project path.
-> - If terminal output is truncated or swallowed, read `skills/ppt-master/.runtime/command_reports/project_manager_init_last.json`, `skills/ppt-master/.runtime/command_reports/project_manager_import-sources_last.json`, or `skills/ppt-master/.runtime/command_reports/project_manager_validate_last.json` instead of retrying blindly.
+> - If terminal output is truncated or swallowed, read `skills/ppt-master-enhanced/.runtime/command_reports/project_manager_init_last.json`, `skills/ppt-master-enhanced/.runtime/command_reports/project_manager_import-sources_last.json`, or `skills/ppt-master-enhanced/.runtime/command_reports/project_manager_validate_last.json` instead of retrying blindly.
 
 > ⚠️ **Directory initialization rule**: After `init`, do NOT manually create `svg_output/`, `notes/`, `review/`, or other standard folders. They already exist.
 
@@ -189,7 +189,7 @@ Import source content (choose based on the situation):
 
 | Situation | Action |
 |-----------|--------|
-| Has source files (PDF/MD/etc.) | `conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py import-sources "<project_path>" "<source_files...>" --copy` |
+| Has source files (PDF/MD/etc.) | `conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py import-sources "<project_path>" "<source_files...>" --copy` |
 | User provided text directly in conversation | No import needed — content is already in conversation context; subsequent steps can reference it directly |
 
 > ⚠️ **Default to `--copy` for user-provided source files**: Files explicitly provided by the user (original PDF / MD / images) MUST be archived into `sources/` as project copies unless the user explicitly asks to relocate the originals.
@@ -202,7 +202,7 @@ Import source content (choose based on the situation):
 Validate immediately after import:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py validate "<project_path>"
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py validate "<project_path>"
 ```
 
 **✅ Checkpoint — Confirm project structure created successfully, `sources/` contains all source files, converted materials are ready. Proceed to Step 3.**
@@ -248,7 +248,7 @@ Query `${SKILL_DIR}/templates/layouts/layouts_index.json` to list available temp
 After the user confirms option A, apply the selected library template with the repository helper:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py apply-template "<project_path>" <template_name>
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py apply-template "<project_path>" <template_name>
 ```
 
 > `apply-template` is the preferred Step 3 execution path. It copies template SVG files and `design_spec.md` into `<project_path>/templates/`, and routes any required PNG/JPG/WebP assets into `<project_path>/images/`.
@@ -553,4 +553,5 @@ Before switching roles, you **MUST first read** the corresponding reference file
 - **SVG review assets**: Keep review artifacts under `<project_path>/review/`; operational details live in `references/svg-review/` and `scripts/docs/svg-review.md`
 - **Troubleshooting**: If generation hits layout overflow, export errors, or blank images, check `scripts/docs/troubleshooting.md`
 - **CI status**: GitHub Actions workflow `ci-validation.yml` is kept in the repository, but it is not yet part of the formal required gate. Validate it separately before depending on it.
+
 

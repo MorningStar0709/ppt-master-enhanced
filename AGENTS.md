@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Read `skills/ppt-master/SKILL.md` before any PPT task.
+Read `skills/ppt-master-enhanced/SKILL.md` before any PPT task.
 
 This repo is a `ppt-master` workflow package, not a generic app scaffold.
 
@@ -13,7 +13,7 @@ Hard rules:
 - Use only `<use data-icon="library/name" .../>`; one deck must use one icon library.
 - Use `conda run -n ppt-master`; on Windows/Trae prefer `--no-capture-output` and set `PYTHONIOENCODING=utf-8` and `CONDA_NO_PLUGINS=true`.
 - Run from repo root with repo-relative paths; do not use shell redirection or PowerShell file-writing commands for `svg_output/*.svg`, `notes/*.md`, or `review/*.md`.
-- Skill static assets live under `skills/ppt-master/`; skill runtime command receipts live under `skills/ppt-master/.runtime/command_reports/`; project review/export state stays under each `projects/<project_path>/`.
+- Skill static assets live under `skills/ppt-master-enhanced/`; skill runtime command receipts live under `skills/ppt-master-enhanced/.runtime/command_reports/`; project review/export state stays under each `projects/<project_path>/`.
 - Reuse the exact `project_path` printed by `project_manager.py init`; do not guess paths or create standard folders manually.
 - Prefer `review_manager.py next-action <project_path> --json`; if review inputs are newer than `review/verify_report.json`, re-run `verify`.
 - If `next-action` returns `request_user_approval`, stop Step 8 and record approval with `review_manager.py approve <project_path> --by <approver_name>`.
@@ -23,5 +23,6 @@ Hard rules:
 - Do not run `total_md_split.py`, `finalize_svg.py`, or `svg_to_pptx.py` before explicit user approval.
 
 See also:
-- `skills/ppt-master/scripts/docs/svg-review.md`
+- `skills/ppt-master-enhanced/scripts/docs/svg-review.md`
+
 

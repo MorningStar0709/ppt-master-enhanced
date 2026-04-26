@@ -5,7 +5,7 @@ This directory is used for storing in-progress projects.
 ## Create a New Project
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init my_project --format ppt169
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init my_project --format ppt169
 ```
 
 If paths, filenames, or content may include non-ASCII characters on Windows/Trae, set:
@@ -61,8 +61,8 @@ Projects can remain at different stages and do not necessarily have all artifact
 
 ## Runtime Boundaries
 
-- `skills/ppt-master/` stores the skill code, templates, and references
-- `skills/ppt-master/.runtime/command_reports/` stores machine-readable "last command" receipts for helper CLIs such as `project_manager.py` and `asset_lookup.py`
+- `skills/ppt-master-enhanced/` stores the skill code, templates, and references
+- `skills/ppt-master-enhanced/.runtime/command_reports/` stores machine-readable "last command" receipts for helper CLIs such as `project_manager.py` and `asset_lookup.py`
 - `projects/<project>/review/` stores project-specific review state such as `review_state.json`, `verify_report.json`, and approval artifacts
 
 ## Review Workflow Notes
@@ -80,4 +80,5 @@ Projects can remain at different stages and do not necessarily have all artifact
 - Completed projects can be moved to the `examples/` directory for sharing
 - Files outside the workspace are copied by default; files within the workspace are moved directly to the project's `sources/`
 - Image generation config is read from the repository-root `.env` only; `.trae/.env` is not supported
+
 

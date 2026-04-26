@@ -11,7 +11,8 @@ This directory stores skill-local runtime artifacts for `ppt-master`.
 
 ## Boundary
 
-- Static skill assets live under `skills/ppt-master/`
-- Runtime receipts live under `skills/ppt-master/.runtime/`
+- Static skill assets live under `skills/ppt-master-enhanced/`
+- Runtime receipts live under `skills/ppt-master-enhanced/.runtime/`
 - Project-specific review and export state lives under `projects/<project>/`
+
 

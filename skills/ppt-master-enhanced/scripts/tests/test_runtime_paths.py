@@ -37,12 +37,12 @@ class RuntimePathTests(unittest.TestCase):
         report_path = get_command_reports_dir(__file__) / "project_manager_init_last.json"
         self.assertEqual(
             format_display_path(report_path, __file__),
-            "skills/ppt-master/.runtime/command_reports/project_manager_init_last.json",
+            "skills/ppt-master-enhanced/.runtime/command_reports/project_manager_init_last.json",
         )
 
     def test_repo_root_resolution_finds_workspace_without_fixed_parent_depth(self) -> None:
         repo_root = resolve_repo_root(__file__)
-        self.assertTrue((repo_root / "skills" / "ppt-master" / "SKILL.md").exists())
+        self.assertTrue((repo_root / "skills" / "ppt-master-enhanced" / "SKILL.md").exists())
 
     def test_command_reports_dir_honors_environment_override(self) -> None:
         override = Path.cwd() / "temp_runtime_reports_override"
@@ -59,3 +59,4 @@ class RuntimePathTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

@@ -5,7 +5,7 @@
 English | [中文](./README_CN.md)
 
 <p align="center">
-  <a href="https://github.com/MorningStar0709/PPTMaster"><strong>Repository</strong></a> ·
+  <a href="https://github.com/MorningStar0709/ppt-master-enhanced"><strong>Repository</strong></a> ·
   <a href="./examples/"><strong>Examples</strong></a> ·
   <a href="./docs/faq.md"><strong>FAQ</strong></a> ·
   <a href="./docs/technical-design.md"><strong>Technical Design</strong></a>
@@ -134,12 +134,12 @@ sudo apt install pandoc
 
 ### 3. Set Up
 
-**Option A — Download ZIP** (no Git required): click **Code → Download ZIP** on the [GitHub page](https://github.com/MorningStar0709/PPTMaster), then unzip.
+**Option A — Download ZIP** (no Git required): click **Code → Download ZIP** on the [GitHub page](https://github.com/MorningStar0709/ppt-master-enhanced), then unzip.
 
 **Option B — Git clone** (requires [Git](https://git-scm.com/downloads) installed):
 
 ```bash
-git clone https://github.com/MorningStar0709/PPTMaster.git
+git clone https://github.com/MorningStar0709/ppt-master-enhanced.git
 cd ppt-master
 ```
 
@@ -150,7 +150,7 @@ conda create -n ppt-master python=3.10 -y
 conda run -n ppt-master pip install -r requirements.txt
 ```
 
-To update later (Option B only, with a clean tracked worktree): `conda run -n ppt-master python skills/ppt-master/scripts/update_repo.py`
+To update later (Option B only, with a clean tracked worktree): `conda run -n ppt-master python skills/ppt-master-enhanced/scripts/update_repo.py`
 
 ### 4. Create
 
@@ -182,7 +182,7 @@ The AI handles content analysis, visual design, and sequential SVG generation, b
 
 > **Time & token trade-off:** This derivative is intentionally slower and usually consumes more tokens than the upstream project. The extra cost comes from stricter checkpoints, page-by-page self-review, review/revision bookkeeping, and export gating.
 
-> **AI lost context?** Ask it to read `skills/ppt-master/SKILL.md`.
+> **AI lost context?** Ask it to read `skills/ppt-master-enhanced/SKILL.md`.
 
 > **Something went wrong?** Check the **[FAQ](./docs/faq.md)** — it covers model selection, layout issues, export problems, and more. Continuously updated from real user reports.
 
@@ -208,7 +208,7 @@ Common examples:
 - `IMAGE_BACKEND=qwen`
 - `IMAGE_BACKEND=minimax`
 
-Run `conda run -n ppt-master python skills/ppt-master/scripts/image_gen.py --list-backends` to see tiers. Environment variables override the repository-root `.env`. Use provider-specific keys (`GEMINI_API_KEY`, `OPENAI_API_KEY`, etc.) — global `IMAGE_API_KEY` is not supported.
+Run `conda run -n ppt-master python skills/ppt-master-enhanced/scripts/image_gen.py --list-backends` to see tiers. Environment variables override the repository-root `.env`. Use provider-specific keys (`GEMINI_API_KEY`, `OPENAI_API_KEY`, etc.) — global `IMAGE_API_KEY` is not supported.
 
 > **Tip:** For best quality, generate images in [Gemini](https://gemini.google.com/) and select **Download full size**. Remove the watermark with `scripts/gemini_watermark_remover.py`.
 
@@ -220,9 +220,10 @@ Run `conda run -n ppt-master python skills/ppt-master/scripts/image_gen.py --lis
 |---|----------|-------------|
 | 🆚 | [Why PPT Master](./docs/why-ppt-master.md) | How it compares to Gamma, Copilot, and other AI tools |
 | 🪟 | [Windows Installation](./docs/windows-installation.md) | Step-by-step setup guide for Windows users |
-| 📖 | [SKILL.md](./skills/ppt-master/SKILL.md) | Core workflow and rules |
-| 📐 | [Canvas Formats](./skills/ppt-master/references/canvas-formats.md) | PPT 16:9, Xiaohongshu, WeChat, and 10+ formats |
-| 🛠️ | [Scripts & Tools](./skills/ppt-master/scripts/README.md) | All scripts and commands |
+| 📖 | [SKILL.md](./skills/ppt-master-enhanced/SKILL.md) | Core workflow and rules |
+| 🔍 | [Skill Comparison Report](./skill_compare_20260426_221639.md) | What changed compared with the upstream `hugohe3/ppt-master` skill |
+| 📐 | [Canvas Formats](./skills/ppt-master-enhanced/references/canvas-formats.md) | PPT 16:9, Xiaohongshu, WeChat, and 10+ formats |
+| 🛠️ | [Scripts & Tools](./skills/ppt-master-enhanced/scripts/README.md) | All scripts and commands |
 | 💼 | [Examples](./examples/README.md) | 15 projects, 229 pages |
 | 🏗️ | [Technical Design](./docs/technical-design.md) | Architecture, design philosophy, why SVG |
 | ❓ | [FAQ](./docs/faq.md) | Model selection, cost, layout troubleshooting, custom templates |
@@ -252,8 +253,8 @@ This repository is based on the original PPT Master project created by Hugo He.
 
 Looking to collaborate, adapt the workflow, or report issues?
 
-- 💬 **Questions & sharing** — [GitHub Discussions](https://github.com/MorningStar0709/PPTMaster/discussions)
-- 🐛 **Bug reports & feature requests** — [GitHub Issues](https://github.com/MorningStar0709/PPTMaster/issues)
+- 💬 **Questions & sharing** — [GitHub Discussions](https://github.com/MorningStar0709/ppt-master-enhanced/discussions)
+- 🐛 **Bug reports & feature requests** — [GitHub Issues](https://github.com/MorningStar0709/ppt-master-enhanced/issues)
 - 📧 **Contact email** — [fanpuji55@outlook.com](mailto:fanpuji55@outlook.com)
 - 🐙 **Maintainer profile** — [MorningStar0709](https://github.com/MorningStar0709)
 

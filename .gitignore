@@ -29,7 +29,7 @@ $RECYCLE.BIN/
 .claude/
 .spec-workflow/
 .trae/
-/skills/ppt-master/.runtime/command_reports/
+/skills/ppt-master-enhanced/.runtime/command_reports/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

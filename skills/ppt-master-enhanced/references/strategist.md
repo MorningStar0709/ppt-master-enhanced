@@ -429,7 +429,7 @@ The Strategist should make professional judgments on the template basis generate
 The project folder should be created before entering the Strategist role. If not yet created, execute:
 
 ```bash
-conda run --no-capture-output -n ppt-master python skills/ppt-master/scripts/project_manager.py init <project_name> --format <canvas_format> --dir projects
+conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init <project_name> --format <canvas_format> --dir projects
 ```
 
 After `init`, the agent MUST capture and reuse the exact printed project path for all downstream actions. `<project_name>` here MUST already be an English slug, and the downstream machine-facing path remains under `projects/<project_name>_<format>`.
@@ -459,4 +459,5 @@ Next step:
 - Images include AI generation → Invoke Image_Generator
 - Images do not include AI generation → Invoke Executor (free design for every page)
 ```
+
 

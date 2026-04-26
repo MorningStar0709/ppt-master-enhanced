@@ -2,11 +2,11 @@
 """PPT Master project management helpers.
 
 Usage:
-    conda run -n ppt-master python skills/ppt-master/scripts/project_manager.py init <project_name> [--format ppt169] [--dir projects]
-    conda run -n ppt-master python skills/ppt-master/scripts/project_manager.py import-sources <project_path> <source1> [<source2> ...] [--move | --copy]
-    conda run -n ppt-master python skills/ppt-master/scripts/project_manager.py apply-template <project_path> <template_name> [--force]
-    conda run -n ppt-master python skills/ppt-master/scripts/project_manager.py validate <project_path>
-    conda run -n ppt-master python skills/ppt-master/scripts/project_manager.py info <project_path>
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py init <project_name> [--format ppt169] [--dir projects]
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py import-sources <project_path> <source1> [<source2> ...] [--move | --copy]
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py apply-template <project_path> <template_name> [--force]
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py validate <project_path>
+    conda run -n ppt-master python skills/ppt-master-enhanced/scripts/project_manager.py info <project_path>
 """
 
 from __future__ import annotations
@@ -1041,4 +1041,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 

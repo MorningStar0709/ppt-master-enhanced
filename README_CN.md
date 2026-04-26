@@ -5,7 +5,7 @@
 [English](./README.md) | 中文
 
 <p align="center">
-  <a href="https://github.com/MorningStar0709/PPTMaster"><strong>仓库主页</strong></a> ·
+  <a href="https://github.com/MorningStar0709/ppt-master-enhanced"><strong>仓库主页</strong></a> ·
   <a href="./examples/"><strong>示例</strong></a> ·
   <a href="./docs/zh/faq.md"><strong>常见问题</strong></a> ·
   <a href="./docs/zh/technical-design.md"><strong>技术设计</strong></a>
@@ -134,12 +134,12 @@ sudo apt install pandoc
 
 ### 3. 配置项目
 
-**方式 A — 下载 ZIP**（无需安装 Git）：点击 [GitHub](https://github.com/MorningStar0709/PPTMaster) 页面中的 **Code → Download ZIP**。
+**方式 A — 下载 ZIP**（无需安装 Git）：点击 [GitHub](https://github.com/MorningStar0709/ppt-master-enhanced) 页面中的 **Code → Download ZIP**。
 
 **方式 B — Git clone**（需先安装 [Git](https://git-scm.com/downloads)）：
 
 ```bash
-git clone https://github.com/MorningStar0709/PPTMaster.git
+git clone https://github.com/MorningStar0709/ppt-master-enhanced.git
 cd ppt-master
 ```
 
@@ -150,7 +150,7 @@ conda create -n ppt-master python=3.10 -y
 conda run -n ppt-master pip install -r requirements.txt
 ```
 
-日常更新（仅方式 B，且需保证当前跟踪文件工作区干净）：`conda run -n ppt-master python skills/ppt-master/scripts/update_repo.py`
+日常更新（仅方式 B，且需保证当前跟踪文件工作区干净）：`conda run -n ppt-master python skills/ppt-master-enhanced/scripts/update_repo.py`
 
 ### 4. 开始创作
 
@@ -182,7 +182,7 @@ AI 会完成内容分析、视觉设计和串行 SVG 生成，但 PPTX 导出前
 
 > **时间与 token 提示：** 这个增强版通常比上游项目更慢，也更耗 token。额外开销主要来自更严格的检查点、逐页自检、review/revision 记录以及导出门禁。
 
-> **AI 迷失上下文？** 让它先读 `skills/ppt-master/SKILL.md`。
+> **AI 迷失上下文？** 让它先读 `skills/ppt-master-enhanced/SKILL.md`。
 
 > **遇到问题？** 查看 **[常见问题](./docs/zh/faq.md)** — 涵盖模型选择、排版问题、导出异常等，基于真实用户反馈持续更新。
 
@@ -202,7 +202,7 @@ GEMINI_MODEL=gemini-3.1-flash-image-preview
 
 支持的后端：`gemini` · `openai` · `qwen` · `zhipu` · `volcengine` · `stability` · `bfl` · `ideogram` · `siliconflow` · `fal` · `replicate`
 
-运行 `conda run -n ppt-master python skills/ppt-master/scripts/image_gen.py --list-backends` 查看分级。环境变量优先于仓库根目录 `.env`。使用各家独立的 Key（`GEMINI_API_KEY`、`OPENAI_API_KEY` 等）——不支持全局 `IMAGE_API_KEY`。
+运行 `conda run -n ppt-master python skills/ppt-master-enhanced/scripts/image_gen.py --list-backends` 查看分级。环境变量优先于仓库根目录 `.env`。使用各家独立的 Key（`GEMINI_API_KEY`、`OPENAI_API_KEY` 等）——不支持全局 `IMAGE_API_KEY`。
 
 > **建议：** 高质量图片推荐在 [Gemini](https://gemini.google.com/) 中生成并选择 **Download full size**。去水印可用 `scripts/gemini_watermark_remover.py`。
 
@@ -214,9 +214,10 @@ GEMINI_MODEL=gemini-3.1-flash-image-preview
 |---|------|------|
 | 🆚 | [为什么选 PPT Master](./docs/zh/why-ppt-master.md) | 与 Gamma、Copilot 等工具的对比 |
 | 🪟 | [Windows 安装指南](./docs/zh/windows-installation.md) | Windows 用户手把手安装教程 |
-| 📖 | [SKILL.md](./skills/ppt-master/SKILL.md) | 核心流程与规则 |
-| 📐 | [画布格式](./skills/ppt-master/references/canvas-formats.md) | PPT 16:9、小红书、朋友圈等 10+ 种格式 |
-| 🛠️ | [脚本与工具](./skills/ppt-master/scripts/README.md) | 所有脚本和命令 |
+| 📖 | [SKILL.md](./skills/ppt-master-enhanced/SKILL.md) | 核心流程与规则 |
+| 🔍 | [Skill 差异对比报告](./skill_compare_20260426_221639.md) | 对比上游 `hugohe3/ppt-master` skill 与当前增强版的主要变化 |
+| 📐 | [画布格式](./skills/ppt-master-enhanced/references/canvas-formats.md) | PPT 16:9、小红书、朋友圈等 10+ 种格式 |
+| 🛠️ | [脚本与工具](./skills/ppt-master-enhanced/scripts/README.md) | 所有脚本和命令 |
 | 💼 | [示例](./examples/README.md) | 15 个项目，229 页 |
 | 🏗️ | [技术路线](./docs/zh/technical-design.md) | 架构、设计哲学、为什么选 SVG |
 | ❓ | [常见问题](./docs/zh/faq.md) | 模型选择、费用、排版问题排查、自定义模板 |
@@ -246,8 +247,8 @@ GEMINI_MODEL=gemini-3.1-flash-image-preview
 
 欢迎反馈问题、交流使用方式，或讨论如何将这套流程接入你的工作流：
 
-- 💬 **提问与分享** — [GitHub Discussions](https://github.com/MorningStar0709/PPTMaster/discussions)
-- 🐛 **Bug 反馈与功能建议** — [GitHub Issues](https://github.com/MorningStar0709/PPTMaster/issues)
+- 💬 **提问与分享** — [GitHub Discussions](https://github.com/MorningStar0709/ppt-master-enhanced/discussions)
+- 🐛 **Bug 反馈与功能建议** — [GitHub Issues](https://github.com/MorningStar0709/ppt-master-enhanced/issues)
 - 📧 **联系邮箱** — [fanpuji55@outlook.com](mailto:fanpuji55@outlook.com)
 - 🐙 **维护者主页** — [MorningStar0709](https://github.com/MorningStar0709)
 

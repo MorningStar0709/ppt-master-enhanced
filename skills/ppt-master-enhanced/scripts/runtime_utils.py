@@ -68,15 +68,15 @@ def resolve_repo_root(anchor: str | Path) -> Path:
 
     skill_dir = resolve_skill_dir(anchor)
     for candidate in (skill_dir, *skill_dir.parents):
-        if (candidate / "skills" / "ppt-master" / "SKILL.md").exists():
+        if (candidate / "skills" / "ppt-master-enhanced" / "SKILL.md").exists():
             return candidate
-        skill_marker = candidate / ".trae" / "skills" / "ppt-master" / "SKILL.md"
+        skill_marker = candidate / ".trae" / "skills" / "ppt-master-enhanced" / "SKILL.md"
         if skill_marker.exists():
             return candidate
 
     for candidate in (skill_dir, *skill_dir.parents):
         if (candidate / "projects").exists() and (
-            (candidate / "skills" / "ppt-master" / "SKILL.md").exists()
+            (candidate / "skills" / "ppt-master-enhanced" / "SKILL.md").exists()
             or (candidate / ".trae").exists()
         ):
             return candidate
