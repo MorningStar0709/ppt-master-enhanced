@@ -8,6 +8,7 @@
   <a href="https://github.com/MorningStar0709/ppt-master-enhanced"><strong>仓库主页</strong></a> ·
   <a href="./examples/"><strong>示例</strong></a> ·
   <a href="./docs/zh/faq.md"><strong>常见问题</strong></a> ·
+  <a href="./skill_compare_20260426_221639.md"><strong>差异报告</strong></a> ·
   <a href="./docs/zh/technical-design.md"><strong>技术设计</strong></a>
 </p>
 
@@ -257,4 +258,3 @@ GEMINI_MODEL=gemini-3.1-flash-image-preview
 由 [MorningStar0709](https://github.com/MorningStar0709) 维护 · 基于 Hugo He 的原始 PPT Master 项目
 
 [⬆ 回到顶部](#ppt-master--ai-生成原生可编辑-pptx支持任意文档输入)
-

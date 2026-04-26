@@ -8,6 +8,7 @@ English | [中文](./README_CN.md)
   <a href="https://github.com/MorningStar0709/ppt-master-enhanced"><strong>Repository</strong></a> ·
   <a href="./examples/"><strong>Examples</strong></a> ·
   <a href="./docs/faq.md"><strong>FAQ</strong></a> ·
+  <a href="./skill_compare_20260426_221639.md"><strong>Comparison</strong></a> ·
   <a href="./docs/technical-design.md"><strong>Technical Design</strong></a>
 </p>
 
@@ -263,4 +264,3 @@ Looking to collaborate, adapt the workflow, or report issues?
 Maintained by [MorningStar0709](https://github.com/MorningStar0709) · Based on the original PPT Master project by Hugo He
 
 [⬆ Back to Top](#ppt-master--ai-generates-natively-editable-pptx-from-any-document)
-
