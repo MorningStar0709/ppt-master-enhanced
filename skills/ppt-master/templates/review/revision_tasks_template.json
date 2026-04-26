@@ -1,0 +1,42 @@
+[
+  {
+    "file": "03_architecture.svg",
+    "status": "todo",
+    "note": "First revision pass after human review.",
+    "allowed_changes": ["layout", "visual"],
+    "issues": [
+      {
+        "id": "issue-1",
+        "symptom": "Right-side labels collide with connector arrows.",
+        "target": "Separate the labels from the connector area and restore clear reading order.",
+        "priority": "P1",
+        "note": "Do not rewrite the page narrative.",
+        "allowed_changes": ["layout", "visual"]
+      },
+      {
+        "id": "issue-2",
+        "symptom": "The icon area looks visually empty after export.",
+        "target": "Use a valid local icon placeholder or an approved non-icon fallback.",
+        "priority": "P1",
+        "note": "Keep one icon library for the whole deck.",
+        "allowed_changes": ["structure", "assets", "visual"]
+      }
+    ]
+  },
+  {
+    "file": "06_patent_innovation.svg",
+    "status": "todo",
+    "note": "Human reviewer requested copy-density reduction only.",
+    "allowed_changes": ["copy", "layout"],
+    "issues": [
+      {
+        "id": "issue-1",
+        "symptom": "Bottom paragraph is too dense for the card height.",
+        "target": "Reduce the copy and rebalance line breaks without changing the overall story.",
+        "priority": "P2",
+        "note": "Do not introduce new images or diagrams.",
+        "allowed_changes": ["copy", "layout"]
+      }
+    ]
+  }
+]

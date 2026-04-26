@@ -1,0 +1,109 @@
+name: CI Validation
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONIOENCODING: utf-8
+      CONDA_NO_PLUGINS: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: false
+          activate-environment: ppt-master
+          environment-name: ppt-master
+          python-version: "3.10"
+
+      - name: Install Python dependencies
+        shell: bash -l {0}
+        run: |
+          conda run -n ppt-master python -m pip install --upgrade pip
+          conda run -n ppt-master python -m pip install -r requirements.txt
+
+      - name: Compile key scripts
+        shell: bash -l {0}
+        run: |
+          conda run --no-capture-output -n ppt-master python -m py_compile \
+            .trae/skills/ppt-master/scripts/review_manager.py \
+            .trae/skills/ppt-master/scripts/review_utils.py \
+            .trae/skills/ppt-master/scripts/batch_validate.py \
+            .trae/skills/ppt-master/scripts/svg_quality_checker.py \
+            .trae/skills/ppt-master/scripts/svg_layout_checker.py \
+            .trae/skills/ppt-master/scripts/icon_reference_checker.py \
+            .trae/skills/ppt-master/scripts/preview_svg_deck.py \
+            .trae/skills/ppt-master/scripts/asset_lookup.py \
+            .trae/skills/ppt-master/scripts/image_gen.py
+
+      - name: Smoke-check helper CLIs
+        shell: bash -l {0}
+        run: |
+          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/asset_lookup.py icons chunk/signal --exact
+          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/image_gen.py --list-backends
+
+      - name: Create synthetic review-gate fixture
+        shell: bash -l {0}
+        run: |
+          conda run --no-capture-output -n ppt-master python - <<'PY'
+          from pathlib import Path
+
+          root = Path("ci-smoke")
+          project = root / "ci_smoke_fixture_ppt169_20260418"
+          (project / "svg_output").mkdir(parents=True, exist_ok=True)
+          (project / "images").mkdir(parents=True, exist_ok=True)
+          (project / "exports").mkdir(parents=True, exist_ok=True)
+
+          (project / "README.md").write_text("# CI Smoke Fixture\n", encoding="utf-8")
+          (project / "design_spec.md").write_text("# Design Spec\n\n- format: ppt169\n", encoding="utf-8")
+
+          slide_01 = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+            <rect width="1280" height="720" fill="#FFFFFF"/>
+            <rect x="80" y="80" width="1120" height="560" rx="24" fill="#F5F7FA"/>
+            <text x="120" y="180" font-family="Arial" font-size="42" font-weight="bold" fill="#1F2937">CI Smoke Cover</text>
+            <text x="120" y="240" font-family="Arial" font-size="22" fill="#4B5563">Unified gate synthetic fixture</text>
+          </svg>
+          """
+
+          slide_02 = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+            <rect width="1280" height="720" fill="#FFFFFF"/>
+            <rect x="100" y="120" width="320" height="180" rx="20" fill="#DBEAFE"/>
+            <rect x="480" y="120" width="320" height="180" rx="20" fill="#DCFCE7"/>
+            <rect x="860" y="120" width="320" height="180" rx="20" fill="#FCE7F3"/>
+            <text x="120" y="190" font-family="Arial" font-size="28" font-weight="bold" fill="#1D4ED8">Quality</text>
+            <text x="500" y="190" font-family="Arial" font-size="28" font-weight="bold" fill="#047857">Layout</text>
+            <text x="880" y="190" font-family="Arial" font-size="28" font-weight="bold" fill="#BE185D">Review</text>
+            <line x1="260" y1="390" x2="1020" y2="390" stroke="#CBD5E1" stroke-width="4"/>
+            <text x="640" y="460" text-anchor="middle" font-family="Arial" font-size="26" fill="#111827">All CI checks should pass on this fixture.</text>
+          </svg>
+          """
+
+          (project / "svg_output" / "slide_01_cover.svg").write_text(slide_01, encoding="utf-8")
+          (project / "svg_output" / "slide_02_summary.svg").write_text(slide_02, encoding="utf-8")
+          PY
+
+      - name: Run unified review gate on fixture
+        shell: bash -l {0}
+        run: |
+          project="ci-smoke/ci_smoke_fixture_ppt169_20260418"
+          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/review_manager.py init "$project"
+          for svg in "$project"/svg_output/*.svg; do
+            file_name="$(basename "$svg")"
+            conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/review_manager.py set-page "$project" --file "$file_name" --priority none --reviewed yes --note "CI smoke pass"
+          done
+          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/review_manager.py approve "$project" --by ci-workflow --note "Synthetic CI smoke fixture approved."
+          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/review_manager.py verify "$project" --compact
+
+      - name: Run batch validation on fixture root
+        shell: bash -l {0}
+        run: |
+          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master/scripts/batch_validate.py ci-smoke
