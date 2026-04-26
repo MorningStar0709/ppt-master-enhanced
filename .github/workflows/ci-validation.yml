@@ -35,21 +35,21 @@ jobs:
         shell: bash -l {0}
         run: |
           conda run --no-capture-output -n ppt-master python -m py_compile \
-            .trae/skills/ppt-master-enhanced/scripts/review_manager.py \
-            .trae/skills/ppt-master-enhanced/scripts/review_utils.py \
-            .trae/skills/ppt-master-enhanced/scripts/batch_validate.py \
-            .trae/skills/ppt-master-enhanced/scripts/svg_quality_checker.py \
-            .trae/skills/ppt-master-enhanced/scripts/svg_layout_checker.py \
-            .trae/skills/ppt-master-enhanced/scripts/icon_reference_checker.py \
-            .trae/skills/ppt-master-enhanced/scripts/preview_svg_deck.py \
-            .trae/skills/ppt-master-enhanced/scripts/asset_lookup.py \
-            .trae/skills/ppt-master-enhanced/scripts/image_gen.py
+            skills/ppt-master-enhanced/scripts/review_manager.py \
+            skills/ppt-master-enhanced/scripts/review_utils.py \
+            skills/ppt-master-enhanced/scripts/batch_validate.py \
+            skills/ppt-master-enhanced/scripts/svg_quality_checker.py \
+            skills/ppt-master-enhanced/scripts/svg_layout_checker.py \
+            skills/ppt-master-enhanced/scripts/icon_reference_checker.py \
+            skills/ppt-master-enhanced/scripts/preview_svg_deck.py \
+            skills/ppt-master-enhanced/scripts/asset_lookup.py \
+            skills/ppt-master-enhanced/scripts/image_gen.py
 
       - name: Smoke-check helper CLIs
         shell: bash -l {0}
         run: |
-          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/asset_lookup.py icons chunk/signal --exact
-          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/image_gen.py --list-backends
+          conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/asset_lookup.py icons chunk/signal --exact
+          conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/image_gen.py --list-backends
 
       - name: Create synthetic review-gate fixture
         shell: bash -l {0}
@@ -95,16 +95,16 @@ jobs:
         shell: bash -l {0}
         run: |
           project="ci-smoke/ci_smoke_fixture_ppt169_20260418"
-          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/review_manager.py init "$project"
+          conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py init "$project"
           for svg in "$project"/svg_output/*.svg; do
             file_name="$(basename "$svg")"
-            conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/review_manager.py set-page "$project" --file "$file_name" --priority none --reviewed yes --note "CI smoke pass"
+            conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py set-page "$project" --file "$file_name" --priority none --reviewed yes --note "CI smoke pass"
           done
-          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/review_manager.py approve "$project" --by ci-workflow --note "Synthetic CI smoke fixture approved."
-          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/review_manager.py verify "$project" --compact
+          conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py approve "$project" --by ci-workflow --note "Synthetic CI smoke fixture approved."
+          conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/review_manager.py verify "$project" --compact
 
       - name: Run batch validation on fixture root
         shell: bash -l {0}
         run: |
-          conda run --no-capture-output -n ppt-master python .trae/skills/ppt-master-enhanced/scripts/batch_validate.py ci-smoke
+          conda run --no-capture-output -n ppt-master python skills/ppt-master-enhanced/scripts/batch_validate.py ci-smoke
 
