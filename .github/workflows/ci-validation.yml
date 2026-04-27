@@ -70,49 +70,51 @@ jobs:
           (project / "templates").mkdir(parents=True, exist_ok=True)
 
           (project / "README.md").write_text("# CI Smoke Fixture\n", encoding="utf-8")
-          design_spec = """# Design Specification & Content Outline
-
-## I. Project Information
-- Project name: CI smoke fixture
-- Purpose: Synthetic validation fixture for CI.
-
-## II. Canvas Specification
-- Format: ppt169
-- Size: 1280 x 720
-
-## III. Visual Theme
-- Style: clean validation dashboard
-- Palette: white, blue, green, pink, slate
-
-## IV. Typography System
-- Font family: Arial
-- Title size: 42
-- Body size: 22
-
-## V. Layout Principles
-- Use clear spacing and readable hierarchy.
-- Keep all elements within the canvas safe area.
-
-## VI. Icon Usage Specification
-- No icon placeholders are used in this fixture.
-
-## VII. Visualization Reference List
-- None required.
-
-## VIII. Image Resource List
-- None required.
-
-## IX. Content Outline
-1. slide_01_cover.svg — CI smoke cover
-2. slide_02_summary.svg — CI smoke summary
-
-## X. Speaker Notes Requirements
-- Notes are not required for this synthetic fixture.
-
-## XI. Technical Constraints Reminder
-- SVG pages must remain valid 1280 x 720 documents.
-- Review gate must pass before export-oriented checks.
-"""
+          design_spec = "\n".join([
+              "# Design Specification & Content Outline",
+              "",
+              "## I. Project Information",
+              "- Project name: CI smoke fixture",
+              "- Purpose: Synthetic validation fixture for CI.",
+              "",
+              "## II. Canvas Specification",
+              "- Format: ppt169",
+              "- Size: 1280 x 720",
+              "",
+              "## III. Visual Theme",
+              "- Style: clean validation dashboard",
+              "- Palette: white, blue, green, pink, slate",
+              "",
+              "## IV. Typography System",
+              "- Font family: Arial",
+              "- Title size: 42",
+              "- Body size: 22",
+              "",
+              "## V. Layout Principles",
+              "- Use clear spacing and readable hierarchy.",
+              "- Keep all elements within the canvas safe area.",
+              "",
+              "## VI. Icon Usage Specification",
+              "- No icon placeholders are used in this fixture.",
+              "",
+              "## VII. Visualization Reference List",
+              "- None required.",
+              "",
+              "## VIII. Image Resource List",
+              "- None required.",
+              "",
+              "## IX. Content Outline",
+              "1. slide_01_cover.svg - CI smoke cover",
+              "2. slide_02_summary.svg - CI smoke summary",
+              "",
+              "## X. Speaker Notes Requirements",
+              "- Notes are not required for this synthetic fixture.",
+              "",
+              "## XI. Technical Constraints Reminder",
+              "- SVG pages must remain valid 1280 x 720 documents.",
+              "- Review gate must pass before export-oriented checks.",
+              "",
+          ])
           (project / "design_spec.md").write_text(design_spec, encoding="utf-8")
 
           slide_01 = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
