@@ -95,6 +95,51 @@ def normalize_canvas_format(format_key: str) -> str:
     return CANVAS_FORMAT_ALIASES.get(key, key)
 
 
+def validate_design_spec(spec_path: Path) -> Tuple[bool, List[str]]:
+    """
+    Validate the structure and content of design_spec.md.
+    Returns (is_valid, error_list).
+    """
+    errors = []
+    if not spec_path.exists():
+        return False, ["Design specification file not found."]
+
+    try:
+        content = spec_path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return False, [f"Failed to read design spec: {e}"]
+
+    # Required sections (I to XI)
+    required_sections = [
+        r"## I\.\s+Project Information",
+        r"## II\.\s+Canvas Specification",
+        r"## III\.\s+Visual Theme",
+        r"## IV\.\s+Typography System",
+        r"## V\.\s+Layout Principles",
+        r"## VI\.\s+Icon Usage Specification",
+        r"## IX\.\s+Content Outline",
+        r"## X\.\s+Speaker Notes Requirements",
+        r"## XI\.\s+Technical Constraints Reminder"
+    ]
+    # Sections VII and VIII are "if needed" but usually present in the template
+    optional_sections = [
+        r"## VII\.\s+Visualization Reference List",
+        r"## VIII\.\s+Image Resource List"
+    ]
+
+    for section_regex in required_sections:
+        if not re.search(section_regex, content, re.IGNORECASE):
+            section_name = section_regex.replace(r"## ", "").replace(r"\.", ".").replace(r"\s+", " ")
+            errors.append(f"Missing required section: {section_name}")
+
+    # Check for placeholders like [fill in] or [Filled by Strategist]
+    placeholders = re.findall(r"\[(?:fill in|Filled by Strategist|Recommended by Strategist|Calculated from canvas|Fill in preset code)\]", content, re.IGNORECASE)
+    if placeholders:
+        errors.append(f"Found {len(placeholders)} unresolved placeholders (e.g., {placeholders[0]})")
+
+    return len(errors) == 0, errors
+
+
 def parse_project_name(dir_name: str) -> Dict[str, str]:
     """
     Parse project information from the project directory name.
@@ -325,12 +370,23 @@ def validate_project_structure(project_path: str, verbose: bool = False) -> Tupl
 
     # Check design specification file
     spec_files = ['design_spec.md', '设计规范与内容大纲.md', 'design_specification.md', '设计规范.md']
-    has_spec = any((project_path / f).exists() for f in spec_files)
-    if not has_spec:
+    spec_path = None
+    for f in spec_files:
+        if (project_path / f).exists():
+            spec_path = project_path / f
+            break
+
+    if not spec_path:
         msg = "Missing design specification file (suggested filename: design_spec.md)"
         if use_helper and verbose:
             msg += "\n" + ErrorHelper.format_error_message('missing_spec')
         warnings.append(msg)
+    else:
+        # Validate spec content if it exists
+        spec_valid, spec_errors = validate_design_spec(spec_path)
+        if not spec_valid:
+            for err in spec_errors:
+                warnings.append(f"Design spec validation error in {spec_path.name}: {err}")
 
     templates_dir = project_path / 'templates'
     if not templates_dir.exists():

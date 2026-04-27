@@ -275,8 +275,47 @@ class ErrorHelper:
                 'Ensure cross-platform compatibility'
             ],
             'severity': 'warning'
+        },
+        'missing_dependency_pandoc': {
+            'message': 'Missing dependency: Pandoc',
+            'solutions': [
+                'Install Pandoc from https://pandoc.org/installing.html',
+                'Pandoc is required for legacy document formats (.doc, .odt, .rtf, .tex, .rst, .org, .typ)',
+                'Alternatively, use .docx which is handled natively by Python'
+            ],
+            'severity': 'error'
+        },
+        'missing_dependency_node': {
+            'message': 'Missing dependency: Node.js',
+            'solutions': [
+                'Install Node.js 18+ from https://nodejs.org/',
+                'Node.js is used as a fallback for web content extraction when curl_cffi is unavailable'
+            ],
+            'severity': 'error'
+        },
+        'command_failed': {
+            'message': 'External tool execution failed',
+            'solutions': [
+                'Check the terminal output above for specific error details',
+                'Ensure all required dependencies are installed',
+                'Ensure the input file path is correct and accessible'
+            ],
+            'severity': 'error'
         }
     }
+
+    @classmethod
+    def match_and_format_error(cls, raw_error: str) -> str:
+        """
+        Attempt to match a raw error string against known patterns and return a formatted message.
+        """
+        if "pandoc" in raw_error.lower():
+            return cls.format_error_message('missing_dependency_pandoc')
+        if "node" in raw_error.lower() and (".cjs" in raw_error or "web_to_md" in raw_error):
+            return cls.format_error_message('missing_dependency_node')
+        
+        # Default fallback
+        return f"[ERROR] Command failed: {raw_error}\n\nSuggested fixes:\n   1. Check the logs for specific details.\n   2. Ensure the environment is correctly configured."
 
     @classmethod
     def get_solution(cls, error_type: str, context: Optional[Dict] = None) -> Dict:

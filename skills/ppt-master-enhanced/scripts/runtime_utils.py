@@ -24,6 +24,26 @@ def configure_utf8_stdio() -> None:
             pass
 
 
+def check_conda_env() -> bool:
+    """
+    Verify if the current Python environment is the expected 'ppt-master' conda environment.
+    Returns True if valid, False if not.
+    """
+    prefix = sys.prefix
+    is_valid = "ppt-master" in prefix or "PPTMaster" in prefix
+    if not is_valid:
+        safe_print("\n" + "!" * 60)
+        safe_print("🚨 ENVIRONMENT MISMATCH DETECTED")
+        safe_print("-" * 60)
+        safe_print(f"Current Python: {sys.executable}")
+        safe_print(f"Current Prefix: {prefix}")
+        safe_print("\nThis script MUST run in the 'ppt-master' conda environment.")
+        safe_print("\n[REQUIRED COMMAND FORM]")
+        safe_print("  conda run -n ppt-master python <script_name>.py ...")
+        safe_print("!" * 60 + "\n")
+    return is_valid
+
+
 def safe_print(*args, **kwargs) -> None:
     """Print with a final fallback that replaces unencodable characters."""
     kwargs.setdefault("flush", True)

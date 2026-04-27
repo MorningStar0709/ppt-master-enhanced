@@ -70,6 +70,8 @@ In practice, that also means this version is slower and more token-intensive tha
 
 **You need Conda plus Python 3.10+.** The workflow assumes a dedicated `ppt-master` Conda environment, and all project commands run through `conda run -n ppt-master ...`.
 
+> **Safety Note**: All core scripts now include an automatic environment check to prevent accidental execution in the wrong Python environment.
+
 | Dependency | Required? | What it does |
 |------------|:---------:|--------------|
 | [Miniconda / Conda](https://docs.conda.io/en/latest/miniconda.html) | ✅ **Yes** | Creates and runs the required `ppt-master` environment |

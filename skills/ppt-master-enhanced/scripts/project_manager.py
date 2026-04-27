@@ -24,6 +24,7 @@ from urllib.parse import urlparse
 
 try:
     from runtime_utils import (
+        check_conda_env,
         configure_utf8_stdio,
         format_display_path,
         get_command_reports_dir,
@@ -39,6 +40,7 @@ try:
         validate_svg_viewbox,
     )
     from review_utils import init_review_artifacts
+    from error_helper import ErrorHelper
 except ImportError:
     tools_dir = Path(__file__).resolve().parent
     if str(tools_dir) not in sys.path:
@@ -59,6 +61,7 @@ except ImportError:
         validate_svg_viewbox,
     )
     from review_utils import init_review_artifacts  # type: ignore
+    from error_helper import ErrorHelper  # type: ignore
 
 TOOLS_DIR = Path(__file__).resolve().parent
 SKILL_DIR = TOOLS_DIR.parent
@@ -354,10 +357,12 @@ class ProjectManager:
                 errors="replace",
             )
         except FileNotFoundError as exc:
-            raise RuntimeError(f"Missing executable: {args[0]}") from exc
+            err_msg = ErrorHelper.match_and_format_error(str(exc))
+            raise RuntimeError(err_msg) from exc
         except subprocess.CalledProcessError as exc:
             details = (exc.stderr or exc.stdout or "").strip()
-            raise RuntimeError(details or "tool execution failed") from exc
+            err_msg = ErrorHelper.match_and_format_error(details)
+            raise RuntimeError(err_msg) from exc
 
         if result.stdout.strip():
             safe_print(result.stdout.strip())
@@ -842,6 +847,8 @@ def parse_apply_template_args(argv: list[str]) -> tuple[str, str, bool]:
 def main() -> None:
     """Run the CLI entry point."""
     configure_utf8_stdio()
+    if not check_conda_env():
+        sys.exit(1)
     argv, json_output, report_file = extract_common_cli_options(sys.argv)
     if len(argv) < 2:
         print_usage()

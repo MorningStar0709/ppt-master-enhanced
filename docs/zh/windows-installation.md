@@ -153,6 +153,21 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ---
 
+## Trae / IDE 终端预设（推荐）
+
+在 Trae 或 VS Code 终端中运行项目脚本时，为了避免中文乱码和环境冲突，建议在执行第一个 Python 命令前设置以下环境变量：
+
+```powershell
+# 强制开启 UTF-8 编码
+$env:PYTHONIOENCODING='utf-8'
+# 禁用可能会干扰 Conda 运行的插件
+$env:CONDA_NO_PLUGINS='true'
+```
+
+如果希望每次打开终端都自动生效，可以将上述命令添加到你的 PowerShell 配置文件（`$PROFILE`）中。
+
+---
+
 ## 还是搞不定？
 
 - 📖 [常见问题 (FAQ)](./faq.md)
